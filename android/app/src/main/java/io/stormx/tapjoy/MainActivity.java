@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity implements TJPlacementListen
         Hashtable<String, Object> connectFlags = new Hashtable<String, Object>();
         connectFlags.put(TapjoyConnectFlag.ENABLE_LOGGING, getIntent().getStringExtra(isDev));
 
-        Tapjoy.setUserID(getIntent().getStringExtra(userId));
         Tapjoy.setDebugEnabled(Boolean.parseBoolean(getIntent().getStringExtra(isDev)));
         Tapjoy.connect(getApplicationContext(), getIntent().getStringExtra(appKey), connectFlags, new TJConnectListener() {
             @Override
             public void onConnectSuccess() {
                 Log.d(TAG, "onConnectSuccess");
-
+                
+                Tapjoy.setUserID(getIntent().getStringExtra(userId));
                 offerwallPlacement = Tapjoy.getPlacement("Offerwall", MainActivity.this);
                 offerwallPlacement.requestContent();
             }
